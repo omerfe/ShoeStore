@@ -11,6 +11,13 @@
 * UnitTests
 ```
 
+### Migrations
+```
+/Infrastructure
+Add-Migration InitialCreate -Context StoreContext -OutputDir "Data/Migrations"
+Update-Database -Context StoreContext
+```
+
 ### Packages
 ```
 \ApplicationCore
