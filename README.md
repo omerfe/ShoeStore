@@ -37,3 +37,4 @@ Install-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 5.0.14
 * https://github.com/dotnet-architecture/eShopOnWeb
 * https://docs.microsoft.com/en-us/aspnet/core/fundamentals/localization?view=aspnetcore-5.0#localization-middleware
 * https://gist.github.com/yigith/c6f999788b833dc3d22ac6332a053dd1
+* https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-context?view=aspnetcore-5.0
