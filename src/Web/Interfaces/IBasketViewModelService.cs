@@ -4,10 +4,12 @@ using Web.Models;
 
 namespace Web.Interfaces
 {
-	public interface IBasketViewModelService
-	{
-		Task<string> GetOrCreateBuyerId();
-		Task<Basket> GetOrCreateBasketAsync();
-		Task<BasketViewModel> AddToBasketAsync(int productId, int quantity);
-	}
+    public interface IBasketViewModelService
+    {
+        Task<BasketViewModel> GetBasketViewModelAsync();
+        Task<int> GetBasketItemsCountAsync();
+        Task<string> GetOrCreateBuyerId();
+        Task<Basket> GetOrCreateBasketAsync();
+        Task<BasketViewModel> AddToBasketAsync(int productId, int quantity);
+    }
 }
