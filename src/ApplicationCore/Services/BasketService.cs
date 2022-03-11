@@ -49,7 +49,7 @@ namespace ApplicationCore.Services
 		public async Task DeleteBasketItemAsync(int basketId, int basketItemId)
 		{
 			var basketItem = await _basketItemRepo.GetByIdAsync(basketItemId);
-			if (basketItem == null || basketItem.BasketId != basketId)
+			if (basketItem is null || basketItem.BasketId != basketId)
 				throw new ArgumentException("Basket item cannot be found.");
 			await _basketItemRepo.DeleteAsync(basketItem);
 		}
@@ -67,6 +67,30 @@ namespace ApplicationCore.Services
 			await _basketRepo.UpdateAsync(basket);
 
 			return basket;
+		}
+		public async Task TransferBasketAsync(string anonymousId, string userId)
+		{
+			var specAnon = new BasketWithItemsSpecification(anonymousId);
+			var anonBasket = await _basketRepo.FirstOrDefaultAsync(specAnon);
+			if (anonBasket is null) return;
+			var specUser = new BasketWithItemsSpecification(userId);
+			var userBasket = await _basketRepo.FirstOrDefaultAsync(specUser);
+			if (userBasket is null)
+			{
+				userBasket = new Basket() { BuyerId = userId };
+				await _basketRepo.AddAsync(userBasket);
+			}
+
+			foreach (BasketItem item in anonBasket.Items)
+			{
+				BasketItem targetItem = userBasket.Items.FirstOrDefault(x => x.ProductId.Equals(item.ProductId));
+				if (targetItem is not null)
+					targetItem.Quantity += item.Quantity;
+				else
+					userBasket.Items.Add(new BasketItem() { ProductId = item.ProductId, Quantity = item.Quantity });
+			}
+			await _basketRepo.UpdateAsync(userBasket);
+			await _basketRepo.DeleteAsync(anonBasket);
 		}
 	}
 }

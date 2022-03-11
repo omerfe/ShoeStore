@@ -4,11 +4,12 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Interfaces
 {
-	public interface IBasketService
-	{
-		Task<Basket> AddItemToBasketAsync(int basketId, int productId, int quantity);
-		Task<Basket> SetQuantitiesAsync(int basketId, Dictionary<int, int> quantities);
-		Task DeleteBasketAsync(int basketId);
-		Task DeleteBasketItemAsync(int basketId, int basketItemId);
-	}
+    public interface IBasketService
+    {
+        Task<Basket> AddItemToBasketAsync(int basketId, int productId, int quantity);
+        Task<Basket> SetQuantitiesAsync(int basketId, Dictionary<int, int> quantities);
+        Task DeleteBasketAsync(int basketId);
+        Task DeleteBasketItemAsync(int basketId, int basketItemId);
+        Task TransferBasketAsync(string anonymousId, string userId);
+    }
 }
