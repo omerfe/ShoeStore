@@ -42,3 +42,5 @@ Install-Package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 5.0.14
 * https://github.com/dotnet/aspnetcore/issues/16663
 * https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.modelbinderattribute.name?view=aspnetcore-5.0
 * https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware/write?view=aspnetcore-5.0
+* https://getbootstrap.com/docs/5.1/examples/checkout/
+* https://docs.microsoft.com/en-us/aspnet/core/mvc/views/view-components?view=aspnetcore-5.0#walkthrough-creating-a-simple-view-component
