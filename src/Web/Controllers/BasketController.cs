@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Interfaces;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -52,15 +53,30 @@ namespace Web.Controllers
             await _basketService.DeleteBasketItemAsync(basket.Id, basketItemId);
             return RedirectToAction(nameof(Index));
         }
+
         [Authorize]
         public async Task<IActionResult> Checkout()
         {
             return View();
         }
+
         [Authorize, HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Checkout(string gecici)
+        public async Task<IActionResult> Checkout(CheckoutViewModel vm)
         {
+            if (ModelState.IsValid)
+            {
+                // payment received
+                var address = new Address(vm.Country, vm.State, vm.City, vm.Street, vm.ZipCode);
+                var result = await _basketViewModelService.CompleteCheckoutAsync(address);
+
+                return RedirectToAction("OrderComplete", result);
+            }
             return View();
+        }
+
+        public async Task<IActionResult> OrderComplete(OrderCompleteViewModel vm)
+        {
+            return View(vm);
         }
     }
 }
